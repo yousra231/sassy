@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Do You Like Me? 💘</title>
-  <link rel="icon" href="https://emojiapi.dev/api/v1/heart/64.png" type="image/png">
+  <link rel="icon" href="https://emojiapi.dev/api/v1/heart/64.png" type="image/png" />
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       padding: 0;
@@ -14,14 +18,16 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
       flex-direction: column;
+      padding: 20px;
+      text-align: center;
     }
 
     h1 {
-      font-size: 2.5rem;
+      font-size: 2rem;
       color: #d63384;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
       animation: pop 1s ease;
     }
 
@@ -32,16 +38,19 @@
 
     .buttons {
       display: flex;
-      gap: 30px;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
     }
 
     button {
-      padding: 15px 30px;
-      font-size: 18px;
+      padding: 15px 25px;
+      font-size: 1.1rem;
       border: none;
-      border-radius: 30px;
+      border-radius: 25px;
       cursor: pointer;
       transition: 0.3s ease;
+      min-width: 100px;
     }
 
     #yes {
@@ -55,14 +64,14 @@
     }
 
     #no {
-      background: #cccccc;
-      color: black;
+      background: #eeeeee;
+      color: #333;
       position: relative;
     }
 
     .message {
       margin-top: 30px;
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       color: #ff3399;
       display: none;
     }
@@ -70,14 +79,35 @@
     .heart {
       animation: float 4s ease-in-out infinite;
       position: absolute;
-      top: 20px;
+      top: 15px;
       right: 20px;
-      font-size: 2rem;
+      font-size: 1.8rem;
     }
 
     @keyframes float {
       0%, 100% { transform: translateY(0px); }
       50% { transform: translateY(-10px); }
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.7rem;
+      }
+
+      button {
+        font-size: 1rem;
+        padding: 12px 20px;
+        min-width: 120px;
+      }
+
+      .message {
+        font-size: 1.1rem;
+      }
+
+      .buttons {
+        flex-direction: column;
+        gap: 15px;
+      }
     }
   </style>
 </head>
@@ -99,14 +129,17 @@
       message.style.display = "block";
     });
 
-    // Escape effect for "No" button
-    noBtn.addEventListener("mouseenter", () => {
-      const i = Math.floor(Math.random() * window.innerWidth - 100);
-      const j = Math.floor(Math.random() * window.innerHeight - 50);
+    // On mobile, prevent runaway behavior from breaking
+    noBtn.addEventListener("touchstart", moveButton);
+    noBtn.addEventListener("mouseenter", moveButton);
+
+    function moveButton() {
+      const i = Math.floor(Math.random() * (window.innerWidth - 120));
+      const j = Math.floor(Math.random() * (window.innerHeight - 80));
       noBtn.style.position = "absolute";
       noBtn.style.left = `${i}px`;
       noBtn.style.top = `${j}px`;
-    });
+    }
   </script>
 </body>
 </html>
