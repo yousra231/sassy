@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Do You Like Me? 💘</title>
+  <link rel="icon" href="https://emojiapi.dev/api/v1/heart/64.png" type="image/png">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #ffe0ec, #ffb6c1);
+      font-family: 'Comic Sans MS', cursive;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: #d63384;
+      margin-bottom: 40px;
+      animation: pop 1s ease;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .buttons {
+      display: flex;
+      gap: 30px;
+    }
+
+    button {
+      padding: 15px 30px;
+      font-size: 18px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    #yes {
+      background: #ff4da6;
+      color: white;
+    }
+
+    #yes:hover {
+      background: #e60073;
+      transform: scale(1.1);
+    }
+
+    #no {
+      background: #cccccc;
+      color: black;
+      position: relative;
+    }
+
+    .message {
+      margin-top: 30px;
+      font-size: 1.5rem;
+      color: #ff3399;
+      display: none;
+    }
+
+    .heart {
+      animation: float 4s ease-in-out infinite;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 2rem;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+  </style>
+</head>
+<body>
+  <div class="heart">💖</div>
+  <h1>Do you like me? 😳</h1>
+  <div class="buttons">
+    <button id="yes">Yes 💘</button>
+    <button id="no">No 🙈</button>
+  </div>
+  <div class="message" id="message">Awwww 🥰 I like you too! 💕</div>
+
+  <script>
+    const yesBtn = document.getElementById("yes");
+    const noBtn = document.getElementById("no");
+    const message = document.getElementById("message");
+
+    yesBtn.addEventListener("click", () => {
+      message.style.display = "block";
+    });
+
+    // Escape effect for "No" button
+    noBtn.addEventListener("mouseenter", () => {
+      const i = Math.floor(Math.random() * window.innerWidth - 100);
+      const j = Math.floor(Math.random() * window.innerHeight - 50);
+      noBtn.style.position = "absolute";
+      noBtn.style.left = `${i}px`;
+      noBtn.style.top = `${j}px`;
+    });
+  </script>
+</body>
+</html>
