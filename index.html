@@ -22,6 +22,7 @@
       flex-direction: column;
       padding: 20px;
       text-align: center;
+      overflow: hidden;
     }
 
     h1 {
@@ -89,6 +90,22 @@
       50% { transform: translateY(-10px); }
     }
 
+    #share {
+      margin-top: 25px;
+      background: #ff99c8;
+      color: white;
+    }
+
+    #share:hover {
+      background: #ff66a3;
+    }
+
+    #copied {
+      color: green;
+      display: none;
+      margin-top: 10px;
+    }
+
     @media (max-width: 600px) {
       h1 {
         font-size: 1.7rem;
@@ -120,18 +137,24 @@
   </div>
   <div class="message" id="message">Awwww 🥰 I like you too! 💕</div>
 
+  <button id="share">💬 Share this with your crush</button>
+  <p id="copied">Link copied to clipboard! 💌</p>
+
   <script>
     const yesBtn = document.getElementById("yes");
     const noBtn = document.getElementById("no");
     const message = document.getElementById("message");
+    const shareBtn = document.getElementById("share");
+    const copiedMsg = document.getElementById("copied");
+
+    const siteUrl = "https://yousra231.github.io/fun"; // replace with your real URL
 
     yesBtn.addEventListener("click", () => {
       message.style.display = "block";
     });
 
-    // On mobile, prevent runaway behavior from breaking
-    noBtn.addEventListener("touchstart", moveButton);
     noBtn.addEventListener("mouseenter", moveButton);
+    noBtn.addEventListener("touchstart", moveButton);
 
     function moveButton() {
       const i = Math.floor(Math.random() * (window.innerWidth - 120));
@@ -140,6 +163,28 @@
       noBtn.style.left = `${i}px`;
       noBtn.style.top = `${j}px`;
     }
+
+    shareBtn.addEventListener("click", async () => {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: "💘 I have something for you!",
+            text: "Click here... I made this for you 💌",
+            url: siteUrl,
+          });
+        } catch (err) {
+          console.error("Share failed:", err);
+        }
+      } else {
+        try {
+          await navigator.clipboard.writeText(siteUrl);
+          copiedMsg.style.display = "block";
+          setTimeout(() => (copiedMsg.style.display = "none"), 2000);
+        } catch (err) {
+          alert("Couldn't copy the link 😓");
+        }
+      }
+    });
   </script>
 </body>
 </html>
